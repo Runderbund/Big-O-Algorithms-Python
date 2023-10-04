@@ -43,6 +43,34 @@ def sort_list(number_list):
                 sorted = False
     return number_list
 
+# Time complexity O(n log n) (merge sort)
+def sort_list_alt(number_list):
+    if len(number_list) <= 1:
+        return number_list
+
+    mid = len(number_list) // 2
+    left_half = number_list[:mid]
+    right_half = number_list[mid:]
+
+    return merge(sort_list_alt(left_half), sort_list_alt(right_half))
+
+def merge(left, right):
+    result = []
+    i = j = 0
+
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+
+    result.extend(left[i:])
+    result.extend(right[j:])
+    
+    return result
+
 # even_or_odd Tests
 print("Even or Odd:")
 print(even_or_odd(2)) # True
@@ -85,3 +113,11 @@ print(sort_list([1]))  # [1]
 print(sort_list([]))  # []
 print("\n")
 
+# sort_list Tests
+print("Sort list alt:")
+print(sort_list_alt([4, 2, 8, 5, 1]))  # [1, 2, 4, 5, 8]
+print(sort_list_alt([1, 2, 3, 4, 5]))  # [1, 2, 3, 4, 5]
+print(sort_list_alt([5, 4, 3, 2, 1]))  # [1, 2, 3, 4, 5]
+print(sort_list_alt([1]))  # [1]
+print(sort_list_alt([]))  # []
+print("\n")
